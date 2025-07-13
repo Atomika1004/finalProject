@@ -12,16 +12,16 @@ import ru.atomika.bank_service.exception.NotEnoughMoney;
 public class CustomExceptionHandler {
 
     @ExceptionHandler(NotEnoughMoney.class)
-    public ResponseEntity<String> notFoundException(NotEnoughMoney exception) {
+    public ResponseEntity<String> notEnoughException(NotEnoughMoney exception) {
         return ResponseEntity
-                .status(HttpStatus.NOT_FOUND)
+                .status(HttpStatus.BAD_REQUEST)
                 .body(String.format(exception.getMessage()));
     }
 
     @ExceptionHandler(AccounstNotFoundException.class)
     public ResponseEntity<String> notFoundException(AccounstNotFoundException exception) {
         return ResponseEntity
-                .status(HttpStatus.BAD_REQUEST)
+                .status(HttpStatus.NOT_FOUND)
                 .body(String.format(exception.getMessage()));
     }
 

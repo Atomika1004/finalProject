@@ -1,5 +1,6 @@
 package ru.atomika.bank_service.controller;
 
+import jakarta.validation.Valid;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -7,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.atomika.bank_service.dto.ApiResponse;
+import ru.atomika.bank_service.dto.TransferDto;
 import ru.atomika.bank_service.entity.Account;
 import ru.atomika.bank_service.service.AccountService;
 
@@ -38,5 +40,10 @@ public class AccountController {
     @PostMapping("/takeMoney/{id}")
     public ResponseEntity<ApiResponse> takeMoney(@PathVariable Long id, @RequestParam(name = "amount") BigDecimal amount) {
         return new ResponseEntity<>(accountService.takeMoney(id, amount), HttpStatus.OK);
+    }
+
+    @PostMapping("/transfer")
+    public ResponseEntity<ApiResponse> transfer(@RequestBody @Valid TransferDto transferDto) {
+        return new ResponseEntity<>(accountService.transferMoney(transferDto), HttpStatus.OK);
     }
 }
